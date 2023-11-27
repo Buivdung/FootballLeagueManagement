@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{common/fragment::head}"></head>
+
+<body>
+<div class="text-center bg-body-secondary border">
+    <h1>UEFA CHAMPIONS LEAGUE</h1>
+</div>
+<div class="row">
+    <div class="col-3 bg-body-secondary border-end ps-3 m-0">
+        <h3>Menu:</h3>
+        <a class="p-3 d-block" th:href="@{/teams}">Teams management </a>
+        <a class="p-3 " th:href="@{/group}">Group information </a>
+    </div>
+    <div class="col-9 m-0" layout:fragment="content"></div>
+</div>
+<div class="text-center bg-body-secondary border">
+    <h2>Powered by FA</h2>
+</div>
+
+<script th:src="@{/js/Teams.js}"></script>
+</body>
+
+</html>

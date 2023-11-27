@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}"
+>
+<head th:replace="~{common/fragment::head}"></head>
+<body>
+
+<div layout:fragment="content">
+    <div class="p-1">
+        <h1>Teams management:</h1>
+        <table class="table border text-center">
+            <thead>
+            <tr>
+                <th scope="col" class="bg-primary-subtle">Team</th>
+                <th scope="col" class="border-start border-end bg-primary-subtle">Coach</th>
+                <th scope="col" class="border-start border-end bg-primary-subtle">National</th>
+                <th scope="col" class="bg-primary-subtle"></th>
+            </tr>
+            </thead>
+            <form th:action="@{/teams}" method="post" th:object="${teamReq}">
+                <tbody>
+                <input class="form-control" type="hidden" th:field="*{id}">
+                <tr>
+                    <td>
+                        <input class="form-control" type="text" th:field="*{teamName}">
+                    </td>
+                    <td class="border-start border-end">
+                        <input class="form-control " type="text" th:field="*{coachName}">
+                    </td>
+                    <td class="border-start border-end">
+                        <input class="form-control" type="text" th:field="*{nationalName}">
+                    </td>
+                    <td>
+                        <input type="submit" value="Save" class="btn btn-success">
+                    </td>
+                </tr>
+                </tbody>
+                <p th:if="${#fields.hasErrors('teamName')}" class="text-danger" th:errors="*{teamName}"></p>
+            </form>
+        </table>
+
+        <table class="table border text-center">
+            <thead>
+            <tr>
+                <th scope="col" class="bg-primary-subtle">Stt</th>
+                <th scope="col" class="border-start border-end bg-primary-subtle">Team</th>
+                <th scope="col" class="border-start border-end bg-primary-subtle">Coach</th>
+                <th scope="col" class="border-start border-end bg-primary-subtle">National</th>
+                <th scope="col" class="bg-primary-subtle"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center" th:each="t,i : ${teamResps}">
+                <td th:utext="${i.count}"></td>
+                <td class="border-start border-end" th:utext="${t.teamName}"></td>
+                <td class="border-start border-end" th:utext="${t.coachName}"></td>
+                <td class="border-start border-end" th:utext="${t.nationalName}"></td>
+                <td>
+                    <a href="#" th:onclick="'editById('+ ${t.id} +')'" role="button" class="me-4">Edit</a>
+                    <a href="#" th:onclick="'deleteById('+ ${t.id} +')'" data-bs-toggle="modal" data-bs-target="#deleteById">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="deleteById" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content text-center">
+                <div class="modal-body">
+                    <h5>Do want to delete this name?</h5>
+                </div>
+                <div id="deleteTeam" class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

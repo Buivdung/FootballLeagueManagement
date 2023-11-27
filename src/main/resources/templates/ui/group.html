@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}"
+>
+<head th:replace="~{common/fragment::head}"></head>
+<body>
+
+<div layout:fragment="content">
+    <div class="p-1">
+        <h3>Team:</h3>
+
+        <table class="table border text-center">
+            <thead>
+            <tr>
+                <th scope="col" class="bg-primary-subtle">Stt</th>
+                <th scope="col" class="border-start border-end bg-primary-subtle">Team</th>
+                <th scope="col" class="border-start border-end bg-primary-subtle">Coach</th>
+                <th scope="col" class="border-start border-end bg-primary-subtle">National</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="t,i : ${teamResps}">
+                <th th:utext="${t.id}"></th>
+                <td class="border-start border-end" th:utext="${t.teamName}"></td>
+                <td class="border-start border-end" th:utext="${t.coachName}"></td>
+                <td class="border-start border-end" th:utext="${t.nationalName}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+        <a role="button" th:href="@{/getGroup}" class="btn btn-primary">Make group</a>
+
+        <h3>Group:</h3>
+        <div>
+            <div class="row border m-0">
+                <div class="col-6" th:each=" g : ${groups}">
+                    <h5 th:utext="${g.key}"><u>A :</u></h5>
+                    <div class="ps-3 d-flex flex-column">
+                       <div th:each=" t,i : ${g.value}">
+                           <span th:utext="${ i.count + '.  ' + t.teamName}">
+                               [[#{{i.count}}]]  [[#{{t.teamName}}]]
+                           </span>
+                       </div>
+                    </div>
+                </div>
+              <span class="text-center text-danger" th:utext="${message}"> </span>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
